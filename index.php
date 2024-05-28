@@ -1,5 +1,24 @@
+<?php
+$errors = [];
+if (!empty($_POST)) {
+    if (empty($_POST['name'])) {
+        $errors[] = "Le nom est obligatoire";
+    }
+    // La vérification pour le champ email
+    if (empty($_POST['email'])) {
+        $errors[] = "Le email est obligatoire";
+    }
+
+    // La vérification pour le champ sujet
+    if (empty($_POST['sujet'])) {
+        $errors[] = "Le sujet est obligatoire";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
@@ -55,9 +74,50 @@
                 quaerat nemo nam, consequuntur nisi alias in praesentium. Fuga amet esse nam doloremque ut nemo nostrum.
             </p>
         </section>
-        <?php //@todo Add a contact form  ?>
+        <section class="container">
+            <h2 id="Get ">Get in touch</h2>
+            <p>Leave US a message and wew ill get back to you as soon a possible.</p>
+            <p>Fieds marked will red wilcard* are required</p>
+            <form action="/remerciment.php" method="POST">
+                <?php
+                // Afficher les erreurs s'il y en a
+                if (!empty($errors)) {
+                    foreach ($errors as $error) {
+                        echo $error . PHP_EOL;
+                }
+            }
+                ?>
+                <div class="form-group">
+                    <label for="name">Nom <span>*</span></label>
+                    <input type="text" id="name" name="name"><required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email <span>*</span></label>
+                    <input type="email" id="email" name="email"><required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Sujet du message <span>*</span></label>
+                    <select id="subject" name="subject"><required>
+                        <option> Sélectionnez un sujet</option>
+                        <option> rendez-vous: Prendre rendez-vous </option>
+                        <option> newsletter: Inscription à la newsletter </option>
+                        <option> reclamatio: Réclamation </option>
+                        <option> devis: Demander un devis </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5"></textarea>
+                </div>
+                <input type="submit" value="Envoyer">
+            </form>
+
+        </section>
+
     </main>
+
     <?php include '_footer.php' ?>
+
 </body>
 
 </html>
